@@ -1,0 +1,3565 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>API and Geocoding &#8212; Integration of Python Learnings</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'API and Geocoding';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Visualization and API Google" href="Data%20Visualization%20and%20Geolocation.html" />
+    <link rel="prev" title="Welcome to Integration of Python’s Learnings" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Integration of Python’s Learnings
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">API and Geocoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data%20Visualization%20and%20Geolocation.html">Data Visualization and API Google</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeoDataFrame%20and%20Manipulation.html">GeoDataFrame</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FAPI and Geocoding.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/API and Geocoding.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>API and Geocoding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="api-and-geocoding">
+<h1>API and Geocoding<a class="headerlink" href="#api-and-geocoding" title="Permalink to this heading">#</a></h1>
+<p>This is a <strong>team work</strong> from Python Intermediate Course. You can check out how importa data from PDF, convert to PandaDataFrame, use GoopleMaps API, get latitude and longitude, and calculate distance from a direction points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Librería necesarias para el trabajo</span>
+<span class="c1"># !pip install tabula-py</span>
+<span class="c1"># !pip install pdfplumber</span>
+<span class="kn">import</span> <span class="nn">tabula</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm_notebook</span> <span class="k">as</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">googlemaps</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transformacion de PDF a DataFrame</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;https://www.bbva.pe/content/dam/public-web/peru/documents/personas/canales-de-atencion/oficinas/Oficinas-BBVA-abiertas-23.10.20.pdf&#39;</span>
+<span class="n">pdf_data</span> <span class="o">=</span> <span class="n">tabula</span><span class="o">.</span><span class="n">read_pdf</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">pages</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                          <span class="n">pandas_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;header&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">})</span>
+<span class="c1"># Se observa que el objeto pdf_data es una lista, cuyos elementos son DataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                                0  \
+0                             NaN   
+1                         OFICINA   
+2                    BAGUA GRANDE   
+3                        CHIMBOTE   
+4                          HUARAZ   
+5              MEGAPLAZA CHIMBOTE   
+6                             NaN   
+7         MERCADO MODELO CHIMBOTE   
+8                  NUEVO CHIMBOTE   
+9                             NaN   
+10                    ANDAHUAYLAS   
+11                     LAS BAMBAS   
+12                       AREQUIPA   
+13              CAMANA - AREQUIPA   
+14                          CAYMA   
+15                 CERRO COLORADO   
+16                    EL PEDREGAL   
+17                            NaN   
+18  JOSE LUIS BUSTAMANTE Y RIVERO   
+19                            NaN   
+20       MALL AVENTURA PLAZA  AQP   
+21                            NaN   
+22          MIRAFLORES - AREQUIPA   
+23              PARQUE INDUSTRIAL   
+24                     SAN CAMILO   
+25                      YANAHUARA   
+26          UNIVERSIDAD SAN PABLO   
+27                            NaN   
+28                       AYACUCHO   
+29                 C.C. EL QUINDE   
+30                      CAJAMARCA   
+31                          CHOTA   
+32                           JAEN   
+33                          CUSCO   
+34                 LARAPA - CUZCO   
+35                    QUILLABAMBA   
+36               REAL PLAZA CUSCO   
+37                        TINTAYA   
+38                        WANCHAQ   
+39                        HUANUCO   
+40                            NaN   
+41         PLAZA DE ARMAS HUANUCO   
+42                    TINGO MARIA   
+43                        CHINCHA   
+44                  EL QUINDE ICA   
+45                            ICA   
+46                          PISCO   
+47               SAN MARTIN - ICA   
+48                CHILCA HUANCAYO   
+
+                                                    1                     2  \
+0                                                 NaN                   NaN   
+1                                           DIRECCION              DISTRITO   
+2                                AV. CHACHAPOYAS 2044          BAGUA GRANDE   
+3              AV. FRANCISCO BOLOGNESI 696 - CHIMBOTE              CHIMBOTE   
+4        CALLE 2 ESQ. JR. JOSE SUCRE - PLAZA DE ARMAS                HUARAZ   
+5   AV. VICTOR R. HAYA DE LA TORRE 4694, LC B4 Y B...              CHIMBOTE   
+6                                         GRAN CHAVIN                   NaN   
+7   JR. ELIAS AGUIRRE 498, ESQ. CON JR. LADISLAO E...              CHIMBOTE   
+8   CA. PROGR. VIVIENDA ETAPA I, UNIDAD U-1, NÚCLE...        NUEVO CHIMBOTE   
+9                           BUENOS AIRES, MZ. F LT. 1                   NaN   
+10                                       AV. PERU 342           ANDAHUAYLAS   
+11         BARRIO PATRÓN SANTIAGO S/N, PLAZA DE ARMAS         CHALHUAHUACHO   
+12                       SAN FRANCISCO 108 - AREQUIPA              AREQUIPA   
+13        JR. 28 DE JULIO 405, ESQ. CON JR. NAVARRETE                CAMANA   
+14                       AV. EJERCITO 710 - YANAHUARA             YANAHUARA   
+15                           AV. AVIACION 602, LC-118        CERRO COLORADO   
+16  HABILIT. URBANA CENTRO POBLADO DE SERV. BÁSICO...                 MAJES   
+17                               PEDREGAL MZ. G LT. 2                   NaN   
+18  MZ E SUB LOTE 6A COOPERATIVA VIVIENDA EMPLEADO...  JOSE LUIS BUSTAMANTE   
+19                                          LANIFICIO              Y RIVERO   
+20  Local LF-03 - Av. Porongoche N° 500, distrito ...              AREQUIPA   
+21               provincia y departamento de Arequipa                   NaN   
+22  AV. VENEZUELA S/N, C.C. LA NEGRITA TDA. 1 - MI...            MIRAFLORES   
+23                           CALLE JACINTO IBAÑEZ 521              AREQUIPA   
+24                          CALLE PERU 324 - AREQUIPA              AREQUIPA   
+25  AV. JOSE ABELARDO QUIÑONES 700, URB. BARRIO MA...             YANAHUARA   
+26  URB. LA CAMPIÑA PAISAJISTA S/N QUINTA VIVANCO ...              AREQUIPA   
+27                      CATÓLICA SAN PABLO - AREQUIPA                   NaN   
+28   PORTAL UNIÓN N.- 24, ESQ. CON JR. 9 DE DICIEMBRE              AYACUCHO   
+29    JR. SOR MANUELA GIL 151, LOCAL LC-323, 325, 327             CAJAMARCA   
+30                 JR. TARAPACA 719 - 721 - CAJAMARCA             CAJAMARCA   
+31                     AV. ANAXIMANDRO VEGA 413 - 417                 CHOTA   
+32                               CAL SAN MARTIN. 1499                  JAEN   
+33                             AV. EL SOL 366 - CUSCO                 CUSCO   
+34              URB. CACHIMAYO  C-21-A  SAN SEBASTIAN          SAN JERONIMO   
+35              AV. BOLOGNESI 155 - 157 - QUILLABAMBA             SANTA ANA   
+36            AV. COLLASUYO 2964 Y 3060, LOCAL LC-109                 CUSCO   
+37                          CAMPAMENTO MINERO TINTAYA               ESPINAR   
+38             AV. GARCILASO 300 / HUASCAR - WANCHACK               WANCHAQ   
+39  JR. INDEPENDENCIA 1601-1799, CC REAL PLAZA HUA...               HUANUCO   
+40                                            B02-B04                   NaN   
+41                            JR. DOS DE MAYO N° 1137               HUANUCO   
+42                                   AV. RAYMONDI 543             RUPA-RUPA   
+43                       MARISCAL BENAVIDES 117 - 125          CHINCHA ALTA   
+44  AV. LOS MAESTROS 206, LF-100 / LF- 111, FUNDO ...                   ICA   
+45                             JR. LIBERTAD 141 - 165                   ICA   
+46  ESQ.  PEREZ FIGUEROLA / AV. INDEPENDENCIA PZ. ...                 PISCO   
+47                                AV. SAN MARTIN 1144                   ICA   
+48                    AV. 9 DE DICIEMBRE 517, LC 1088                CHILCA   
+
+                3             4  
+0             NaN           NaN  
+1       PROVINCIA  DEPARTAMENTO  
+2       UTCUBAMBA      AMAZONAS  
+3           SANTA        ANCASH  
+4          HUARAZ        ANCASH  
+5           SANTA        ANCASH  
+6             NaN           NaN  
+7           SANTA        ANCASH  
+8           SANTA        ANCASH  
+9             NaN           NaN  
+10    ANDAHUAYLAS      APURIMAC  
+11     COTABAMBAS      APURIMAC  
+12       AREQUIPA      AREQUIPA  
+13         CAMANA      AREQUIPA  
+14       AREQUIPA      AREQUIPA  
+15       AREQUIPA      AREQUIPA  
+16       CAYLLOMA      AREQUIPA  
+17            NaN           NaN  
+18       AREQUIPA      AREQUIPA  
+19            NaN           NaN  
+20       AREQUIPA      AREQUIPA  
+21            NaN           NaN  
+22       AREQUIPA      AREQUIPA  
+23       AREQUIPA      AREQUIPA  
+24       AREQUIPA      AREQUIPA  
+25       AREQUIPA      AREQUIPA  
+26       AREQUIPA      AREQUIPA  
+27            NaN           NaN  
+28       HUAMANGA      AYACUCHO  
+29      CAJAMARCA     CAJAMARCA  
+30      CAJAMARCA     CAJAMARCA  
+31          CHOTA     CAJAMARCA  
+32           JAEN     CAJAMARCA  
+33          CUSCO         CUSCO  
+34          CUSCO         CUSCO  
+35  LA CONVENCION         CUSCO  
+36          CUSCO         CUSCO  
+37        ESPINAR         CUSCO  
+38          CUSCO         CUSCO  
+39        HUANUCO       HUANUCO  
+40            NaN           NaN  
+41        HUANUCO       HUANUCO  
+42  LEONCIO PRADO       HUANUCO  
+43        CHINCHA           ICA  
+44            ICA           ICA  
+45            ICA           ICA  
+46          PISCO           ICA  
+47            ICA           ICA  
+48       HUANCAYO         JUNIN  ,                              0   1  \
+0                     EL TAMBO NaN   
+1                     HUANCAYO NaN   
+2                    LA MERCED NaN   
+3                     LA OROYA NaN   
+4                   PICHANAQUI NaN   
+5                          NaN NaN   
+6          REAL PLAZA HUANCAYO NaN   
+7                       SATIPO NaN   
+8                        TARMA NaN   
+9                       CHEPEN NaN   
+10      EL PORVENIR (Trujillo) NaN   
+11            HUSARES DE JUNIN NaN   
+12            LARCO - TRUJILLO NaN   
+13         MALL PLAZA TRUJILLO NaN   
+14                         NaN NaN   
+15  MERCADO MAYORISTA TRUJILLO NaN   
+16        OVALO LARCO TRUJILLO NaN   
+17                         NaN NaN   
+18                 OVALO PAPAL NaN   
+19                         NaN NaN   
+20                   PACASMAYO NaN   
+21                   PRIMAVERA NaN   
+22         REAL PLAZA TRUJILLO NaN   
+23                    TRUJILLO NaN   
+24                    CHICLAYO NaN   
+25                  LAMBAYEQUE NaN   
+26             LEGUIA CHICLAYO NaN   
+27        MDO. MODELO CHICLAYO NaN   
+28           METRO SANTA ELENA NaN   
+29                 MOSHOQUEQUE NaN   
+30         REAL PLAZA CHICLAYO NaN   
+31                 CAMINO REAL NaN   
+32                 28 DE JULIO NaN   
+33            ABANCAY-CONGRESO NaN   
+34                  AEROPUERTO NaN   
+35                ANGAMOS ESTE NaN   
+36          ANGAMOS OPEN PLAZA NaN   
+37                       APOLO NaN   
+38                    ARAMBURU NaN   
+39                    ARENALES NaN   
+40                 AV. CENTRAL NaN   
+41            AV. DEL EJERCITO NaN   
+42                    AV. PERU NaN   
+43                   AV. SUCRE NaN   
+44                    AVIACIÓN NaN   
+
+                                                    2                     3  \
+0                          AV. MARISCAL CASTILLA 1670              EL TAMBO   
+1                     CALLE REAL 631 - 639 - HUANCAYO              HUANCAYO   
+2                           JR. TARMA 444 - LA MERCED           CHANCHAMAYO   
+3                      AV. HORACIO ZEVALLOS GAMEZ 406              LA OROYA   
+4   JR. INDEPENDENCIA MZ. R, SUB LT. 13A, AAHH BAJ...            PICHANAQUI   
+5                                   1, SEC. ZONA BAJA                   NaN   
+6   ESTACION FERROVIARIA DE HUANCAYO, S/N, LOCAL L...              HUANCAYO   
+7                             JR. MANUEL PRADO N° 217                SATIPO   
+8                                    JR. AREQUIPA 301                 TARMA   
+9       CALLE ATAHUALLPA  S/N, ESQ. CA. SAN PEDRO 101                CHEPEN   
+10                MICAELA BASTIDAS 1273 - EL PORVENIR              TRUJILLO   
+11  AV. HÚSARES DE JUNIN 896, URB. LA MERCED, II E...              TRUJILLO   
+12                                      AV. LARCO 263              TRUJILLO   
+13  AV. MANSICHE, ESQ. AMERICA OESTE, CC MALL PLAZ...              TRUJILLO   
+14                                LC B-1245-1247-1251                   NaN   
+15                                   AV.  VALLEJO 268              TRUJILLO   
+16  AV. AMERICA SUR 4040, MZ. A SUB LT. 20, III ET...              TRUJILLO   
+17                                             ANDRES                   NaN   
+18  AV. AMÉRICA OESTE, ESQ. AV. JUAN PABLO II, MZ....              TRUJILLO   
+19                                               1088                   NaN   
+20                 CALLE DOS DE MAYO No  9 -PACASMAYO             PACASMAYO   
+21                         AV. NICOLAS DE PIEROLA 780              TRUJILLO   
+22  AV. CESAR VALLEJO, ESQ. AV. FÁTIMA, CC REAL PL...              TRUJILLO   
+23                          JR. FRANCISCO PIZARRO 620              TRUJILLO   
+24                           AV. BALTA 651 - CHICLAYO              CHICLAYO   
+25                       CA. RAMÓN CASTILLA 848 - 854            LAMBAYEQUE   
+26                    AV. SAÉNZ PEÑA 1771, LOCAL N° 5              CHICLAYO   
+27                     AV. ARICA 1030-1032 - CHICLAYO              CHICLAYO   
+28  AV. JUAN TOMAS STACK 250, LOCAL 1180 - URB. SA...              CHICLAYO   
+29    AV. EL DORADO N° 1209, URB. FRANCISCO BOLOGNESI   JOSE LEONARDO ORTIZ   
+30   CC REAL PLAZA CHICLAYO - AV. MIGUEL DE CERVANTES              CHICLAYO   
+31                                AV. CAMINO REAL 355            SAN ISIDRO   
+32                                AV. 28 DE JULIO 775                  LIMA   
+33                                AV. ABANCAY 260-262                  LIMA   
+34       CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A                CALLAO   
+35  Av. Angamos Este 215 - 227, esquina con Av. Pe...            MIRAFLORES   
+36  AV. ANGAMOS 1803, CC OPEN PLAZA ANGAMOS, TDA L...             SURQUILLO   
+37                                    AV. MEXICO 1700           LA VICTORIA   
+38            AV. ARAMBURU N° 154-158-162- MIRAFLORES            MIRAFLORES   
+39                                   AV. ARENALES 701                  LIMA   
+40                                    AV. BASADRE 133            SAN ISIDRO   
+41  AV. DEL EJERCITO 789 ESQUINA CALLE JOSE TORIBI...            MIRAFLORES   
+42                                 AV. PERU 3442-3444  SAN MARTIN DE PORRES   
+43                                      AV. SUCRE 970          PUEBLO LIBRE   
+44                            AV. AVIACION  2801-2805             SAN BORJA   
+
+              4            5  
+0      HUANCAYO        JUNIN  
+1      HUANCAYO        JUNIN  
+2   CHANCHAMAYO        JUNIN  
+3         YAULI        JUNIN  
+4   CHANCHAMAYO        JUNIN  
+5           NaN          NaN  
+6      HUANCAYO        JUNIN  
+7        SATIPO        JUNIN  
+8         TARMA        JUNIN  
+9        CHEPEN  LA LIBERTAD  
+10     TRUJILLO  LA LIBERTAD  
+11     TRUJILLO  LA LIBERTAD  
+12     TRUJILLO  LA LIBERTAD  
+13     TRUJILLO  LA LIBERTAD  
+14          NaN          NaN  
+15     TRUJILLO  LA LIBERTAD  
+16     TRUJILLO  LA LIBERTAD  
+17          NaN          NaN  
+18     TRUJILLO  LA LIBERTAD  
+19          NaN          NaN  
+20    PACASMAYO  LA LIBERTAD  
+21     TRUJILLO  LA LIBERTAD  
+22     TRUJILLO  LA LIBERTAD  
+23     TRUJILLO  LA LIBERTAD  
+24     CHICLAYO   LAMBAYEQUE  
+25   LAMBAYEQUE   LAMBAYEQUE  
+26     CHICLAYO   LAMBAYEQUE  
+27     CHICLAYO   LAMBAYEQUE  
+28     CHICLAYO   LAMBAYEQUE  
+29     CHICLAYO   LAMBAYEQUE  
+30     CHICLAYO   LAMBAYEQUE  
+31         LIMA         LIMA  
+32         LIMA         LIMA  
+33         LIMA         LIMA  
+34         LIMA         LIMA  
+35         LIMA         LIMA  
+36         LIMA         LIMA  
+37         LIMA         LIMA  
+38         LIMA         LIMA  
+39         LIMA         LIMA  
+40         LIMA         LIMA  
+41         LIMA         LIMA  
+42         LIMA         LIMA  
+43         LIMA         LIMA  
+44         LIMA         LIMA  ,                             0  \
+0                      BACKUS   
+1                    BARRANCA   
+2                    BARRANCO   
+3                  BASE NAVAL   
+4                  BELLAVISTA   
+5                   BENAVIDES   
+6                     BOLIVAR   
+7                       BREÑA   
+8                 C.C. AURORA   
+9           C.C. CANTA CALLAO   
+10                        NaN   
+11                 C.C. FIORI   
+12             C.C. HIGUERETA   
+13            C.C. MONTERRICO   
+14          C.C.LAS GARDENIAS   
+15                  C.C.RISSO   
+16             C.C.SAN ISIDRO   
+17             C.C.SAN MIGUEL   
+18                        NaN   
+19                  C.C.SUCRE   
+20                     CALLAO   
+21                    CAMACHO   
+22                     CAMANA   
+23           CAMINOS DEL INCA   
+24        CANADA-LA ROSA TORO   
+25          CANAVAL Y MOREYRA   
+26               CANTO GRANDE   
+27                        NaN   
+28                     CAÑETE   
+29                        NaN   
+30                      CAPON   
+31                 CARABAYLLO   
+32                  CAVENECIA   
+33  CC REAL PLAZA SANTA CLARA   
+34              CC. EL TRIGAL   
+35         CC. REAL PLAZA PRO   
+36            CEDROS DE VILLA   
+37                 CHACARILLA   
+38                        NaN   
+39                    CHANCAY   
+40                 CHORRILLOS   
+41                    CHOSICA   
+42                        NaN   
+43          CLUB REGATAS LIMA   
+44                   COLONIAL   
+45         COMANDANTE ESPINAR   
+
+                                                    1                      2  \
+0   AV ASTURIAS 588 - INSTALACIÓN DE LA PLANTA BACKUS                    ATE   
+1                      AV. JOSE GALVEZ 285 - BARRANCA               BARRANCA   
+2                         AV. GRAU 414 ESQ. CA. UNION               BARRANCO   
+3                    AV. CTRMTE.  MORA S/N BASE NAVAL                 CALLAO   
+4                                   AV, COLONIAL 4584             BELLAVISTA   
+5                           AV. BENAVIDES CUADRA 1871             MIRAFLORES   
+6                          AV. BOLIVAR N° 1188 - 1190           PUEBLO LIBRE   
+7                                     JR. HUARAZ 1600                  BREÑA   
+8                      CALLE ARIAS SCHEREIBER 215-217             MIRAFLORES   
+9   AV. ELMER FAUCETT Y ALEJANDRO BERTELLO, CC CAN...                 CALLAO   
+10                                              LC 13                    NaN   
+11                        AV. TOMÁS VALLE 499G, LC 14   SAN MARTIN DE PORRES   
+12                                 AV. BENAVIDES 3501      SANTIAGO DE SURCO   
+13                  AV. LA ENCALADA CDRA. 7 TDA.21-22      SANTIAGO DE SURCO   
+14         AV. BENAVIDES 5096 ESQ. CA. MERCADERES 104      SANTIAGO DE SURCO   
+15                    ESQ. AV. AREQUIPA CON JR. RISSO                  LINCE   
+16                        AV. RIVERA NAVARRETE N° 815             SAN ISIDRO   
+17  AV. UNIVERSITARIA, ESQ. AV. LA MARINA, CC PLAZ...             SAN MIGUEL   
+18                                           LC B-305                    NaN   
+19                          JR. LEGUIA Y MELENDEZ 998           PUEBLO LIBRE   
+20                                 AV. SAENZ PEÑA 323                 CALLAO   
+21                   AV. PROL. JAVIER PRADO ESTE 4921              LA MOLINA   
+22                               AV. EMANCIPACION 200                   LIMA   
+23  AV. CAMINOS DEL INCA 252-256 - URB. TAMBO DE M...      SANTIAGO DE SURCO   
+24                               AV. LA ROSA TORO 998               SAN LUIS   
+25                    AV. CANAVAL Y MOREYRA 243 - 245             SAN ISIDRO   
+26  AV. CANTO GRANDE S/N, ESQ. PEATONAL. URB. QUIN...            SAN JUAN DE   
+27                                           FERNANDO             LURIGANCHO   
+28  JR. DOS DE MAYO 434-438-442-444, SAN VICENTE D...  SAN VICENTE DE CAÑETE   
+29                                             CAÑETE                    NaN   
+30                                    JR. UCAYALI 735            LA VICTORIA   
+31      AV. TUPAC AMARU 3368, AAHH PROGRESO II SECTOR             CARABAYLLO   
+32       ESQ. JR. CAVENECIA CON CALLE TUDELA Y VARELA             SAN ISIDRO   
+33                    AV. NICOLAS AYLLON 8694, LC-105                    ATE   
+34  CALLE LOS ANTARES 318, MZ. A5 LT. 1 - URB. LA ...      SANTIAGO DE SURCO   
+35            AV. ALFREDO MENDIOLA 7038-7042, LC B-02   SAN MARTIN DE PORRES   
+36  AV. ALAMEDA SUR, ESQ. CON AV. SAN MARCOS, PARC...             CHORRILLOS   
+37  AV. PRIMAVERA 1054-1050, OF. 201 Y 401, URB. C...      SANTIAGO DE SURCO   
+38                                           ESTANQUE                    NaN   
+39          CA. DIEGO LÓPEZ DE ZÚÑIGA 262, SUB LOTE A                CHANCAY   
+40  AV. DEFENSORES DEL MORRO 456 - 458 - URB. LOS ...             CHORRILLOS   
+41  AV. 28 DE JULIO 160-164-168 - POBLACIÓN NUEVA ...            SAN JUAN DE   
+42                                                NaN             LURIGANCHO   
+43                      AV. MALECON DE LA RIBERA S/N.             CHORRILLOS   
+44       CALLE OMEGA 149 PARQUE INDUSTRIAL DEL CALLAO                 CALLAO   
+45           AV. COMANDANTE ESPINAR N° 374, 384 y 388             MIRAFLORES   
+
+           3     4  
+0       LIMA  LIMA  
+1   BARRANCA  LIMA  
+2       LIMA  LIMA  
+3       LIMA  LIMA  
+4       LIMA  LIMA  
+5       LIMA  LIMA  
+6       LIMA  LIMA  
+7       LIMA  LIMA  
+8       LIMA  LIMA  
+9       LIMA  LIMA  
+10       NaN   NaN  
+11      LIMA  LIMA  
+12      LIMA  LIMA  
+13      LIMA  LIMA  
+14      LIMA  LIMA  
+15      LIMA  LIMA  
+16      LIMA  LIMA  
+17      LIMA  LIMA  
+18       NaN   NaN  
+19      LIMA  LIMA  
+20      LIMA  LIMA  
+21      LIMA  LIMA  
+22      LIMA  LIMA  
+23      LIMA  LIMA  
+24      LIMA  LIMA  
+25      LIMA  LIMA  
+26      LIMA  LIMA  
+27       NaN   NaN  
+28    CAÑETE  LIMA  
+29       NaN   NaN  
+30      LIMA  LIMA  
+31      LIMA  LIMA  
+32      LIMA  LIMA  
+33      LIMA  LIMA  
+34      LIMA  LIMA  
+35      LIMA  LIMA  
+36      LIMA  LIMA  
+37      LIMA  LIMA  
+38       NaN   NaN  
+39    HUARAL  LIMA  
+40      LIMA  LIMA  
+41      LIMA  LIMA  
+42       NaN   NaN  
+43      LIMA  LIMA  
+44      LIMA  LIMA  
+45      LIMA  LIMA  ,                             0  \
+0                       COMAS   
+1              CONQUISTADORES   
+2                      CORPAC   
+3                      COVIDA   
+4                      CRONOS   
+5   CUARTEL GRAL.DEL EJERCITO   
+6              DAMERO GAMARRA   
+7               DOMINGO CUETO   
+8                 DOS DE MAYO   
+9                         NaN   
+10                EL AGUSTINO   
+11                    EL MURO   
+12                        NaN   
+13                    EL PINO   
+14                    EL POLO   
+15                  EL PUERTO   
+16                 EL REMANSO   
+17                 EL RETABLO   
+18                        NaN   
+19                     EL SOL   
+20                        NaN   
+21                  EL TREBOL   
+22                    ESSALUD   
+23                    FAUCETT   
+24                  FAUCETT 2   
+25                        NaN   
+26                    GAMARRA   
+27                 GRAN CHIMU   
+28                        NaN   
+29         GRIMALDO DEL SOLAR   
+30            GUARDIA CHALACA   
+31            HIPOLITO UNANUE   
+32                     HUACHO   
+33                     HUARAL   
+34                    HUAYCAN   
+35                        NaN   
+36                 INGENIERIA   
+37                  IZAGUIRRE   
+38         JAVIER PRADO OESTE   
+39                JESUS MARIA   
+40               JOCKEY PLAZA   
+41                        NaN   
+42              JORGE BASADRE   
+43                 LA COLMENA   
+44                LA ENCALADA   
+45                LA FLORESTA   
+46                  LA MARINA   
+47                        NaN   
+48                  LA MOLINA   
+
+                                                    1                     2  \
+0                             AV. TUPAC AMARU N° 1175                 COMAS   
+1                            AV. CONQUISTADORES 1099.            SAN ISIDRO   
+2                               CALLE 23  #273 CORPAC            SAN ISIDRO   
+3   Av. Antunez de Mayolo No. 1400,1236 Distrito L...            LOS OLIVOS   
+4   AV. EL DERBY 055, LC 4, URB. LIMA POLO AND HUN...     SANTIAGO DE SURCO   
+5   INTERIOR CTEL. GRAL. DEL EJERCITO:AV. BOULEVAR...             SAN BORJA   
+6   AV. 28 DE JULIO 2498 Y AV. PROLG. HUANUCO 1400...           LA VICTORIA   
+7   Av. Arenales N° 1500, esquina con Av. Domingo ...                 LINCE   
+8   CALLE LOS LAURELES 214 - OF. 210 ESQ. CON LA C...            SAN ISIDRO   
+9                                         DOS DE MAYO                   NaN   
+10       AV. RIVA AGÜERO 1400-1404-1406, MZ. C LT. 27           EL AGUSTINO   
+11  AV. WIESSE TDA A, PROGR. CIUDAD MARISCAL CACER...           SAN JUAN DE   
+12                                      MZ. J1 LT. 28            LURIGANCHO   
+13                            AV. CIRCUNVALACION 1999              SAN LUIS   
+14  AV. EL POLO 740, CC EL POLO LC C-190, BLOCK C ...     SANTIAGO DE SURCO   
+15                   AV. CONTRALMIRANTE RAYGADA N°111                CALLAO   
+16      CA. LOS ALAMOS MZ C-2 LT. 5 - URB. EL REMANSO             LA MOLINA   
+17  AV. UNIVERSITARIA NORTE 7103, MZ. H LT. 22, UR...                 COMAS   
+18                                           II ETAPA                   NaN   
+19  AV. PROCERES DE LA INDEPENDENCIA 2704-2708, MZ...           SAN JUAN DE   
+20                                    URB. SAN CARLOS            LURIGANCHO   
+21    KM.14.5 PANAMERICANA NORTE ESQ. CON AV. GAMARRA            LOS OLIVOS   
+22   AV. ARENALES 1302 - HOSPITAL REBAGLIATI, OF. 150           JESUS MARIA   
+23                                    AV. FAUCETT 216            SAN MIGUEL   
+24  AV. VENEZUELA 5414 ESQ. CON AV. FAUCETT LOCALE...            SAN MIGUEL   
+25                                             y 1160                   NaN   
+26                               PROLONG. UNANUE 1599           LA VICTORIA   
+27            AV. GRAN CHIMU 789-791, 793-795,795-799           SAN JUAN DE   
+28                                                NaN            LURIGANCHO   
+29  AV. 28 DE JULIO 800 ESQUINA CON CALLE GRIMALDO...            MIRAFLORES   
+30      AV. LA MARINA 495 - URB. BENJAMIN DOIG LOSSIO              LA PERLA   
+31                 JR HIPOLITO UNANUE 1616-1620, LC 3           LA VICTORIA   
+32                       AV. 28 DE JULIO 391 - HUACHO                HUACHO   
+33                                    CA.  DERECHA370                HUARAL   
+34  AV. 15 DE JULIO, LOTE 33 , PROGRAMA ESPECIAL H...                   ATE   
+35                                             ZONA B                   NaN   
+36                              ALFREDO MENDIOLA 300.  SAN MARTIN DE PORRES   
+37                 AV. CARLOS IZAGUIRRE N.- 929 - 878            LOS OLIVOS   
+38  AV. JAVIER PRADO OESTE 604, ESQ. CON JR. DOMIN...     MAGDALENA DEL MAR   
+39                        AV. REP. DOMINICANA 355-359           JESUS MARIA   
+40  AV. JAVIER PRADO ESTE 4200, LC CF-B1, CC JOCKE...     SANTIAGO DE SURCO   
+41                                         MONTERRICO                   NaN   
+42                                  JORGE BASADRE 487            SAN ISIDRO   
+43                         AV. NICOLÁS DE PIÉROLA 649                  LIMA   
+44                               AV. LA ENCALADA 1587     SANTIAGO DE SURCO   
+45   AV. PRIMAVERA 606 - URB. CHACARILLA DEL ESTANQUE     SANTIAGO DE SURCO   
+46  AV. LA MARINA N° 2355 CENTRO COMERCIAL LA MARI...            SAN MIGUEL   
+47                                               B-02                   NaN   
+48  AV. LA MOLINA MZ. B LOTE 08, URB. RESIDENCIAL ...             LA MOLINA   
+
+         3     4  
+0     LIMA  LIMA  
+1     LIMA  LIMA  
+2     LIMA  LIMA  
+3     LIMA  LIMA  
+4     LIMA  LIMA  
+5     LIMA  LIMA  
+6     LIMA  LIMA  
+7     LIMA  LIMA  
+8     LIMA  LIMA  
+9      NaN   NaN  
+10    LIMA  LIMA  
+11    LIMA  LIMA  
+12     NaN   NaN  
+13    LIMA  LIMA  
+14    LIMA  LIMA  
+15    LIMA  LIMA  
+16    LIMA  LIMA  
+17    LIMA  LIMA  
+18     NaN   NaN  
+19    LIMA  LIMA  
+20     NaN   NaN  
+21    LIMA  LIMA  
+22    LIMA  LIMA  
+23    LIMA  LIMA  
+24    LIMA  LIMA  
+25     NaN   NaN  
+26    LIMA  LIMA  
+27    LIMA  LIMA  
+28     NaN   NaN  
+29    LIMA  LIMA  
+30    LIMA  LIMA  
+31    LIMA  LIMA  
+32  HUAURA  LIMA  
+33  HUARAL  LIMA  
+34    LIMA  LIMA  
+35     NaN   NaN  
+36    LIMA  LIMA  
+37    LIMA  LIMA  
+38    LIMA  LIMA  
+39    LIMA  LIMA  
+40    LIMA  LIMA  
+41     NaN   NaN  
+42    LIMA  LIMA  
+43    LIMA  LIMA  
+44    LIMA  LIMA  
+45    LIMA  LIMA  
+46    LIMA  LIMA  
+47     NaN   NaN  
+48    LIMA  LIMA  ,                                   0  \
+0                          LA PERLA   
+1                       LA PLANICIE   
+2                               NaN   
+3                         LA RAMBLA   
+4                               NaN   
+5                        LA ROTONDA   
+6                       LA VICTORIA   
+7                    LARCO - TARATA   
+8                      LAS BEGONIAS   
+9                        LAS FLORES   
+10                              NaN   
+11                      LAS TIENDAS   
+12                             LIMA   
+13                  LIMA CARGO CITY   
+14                        LIMATAMBO   
+15                            LINCE   
+16                       LOS ALAMOS   
+17                              NaN   
+18                       LOS OLIVOS   
+19                       LOS ROBLES   
+20                      LOS ROSALES   
+21                            LURÍN   
+22                              NaN   
+23                        MAGDALENA   
+24                             MALA   
+25       MALL AVENTURA PLAZA CALLAO   
+26                              NaN   
+27  MALL AVENTURA PLAZA SANTA ANITA   
+28                     MALL DEL SUR   
+29                              NaN   
+30                          MARANGA   
+31            MDO PROD. SANTA ANITA   
+32                              NaN   
+33   MEGA EXPRESS VILLA EL SALVADOR   
+34                       MEGA PLAZA   
+35                              NaN   
+36             METRO PLAZA CASTILLA   
+37                              NaN   
+38                           MEXICO   
+39                            MINKA   
+40                       MIRAFLORES   
+41                      MONTEGRANDE   
+42                       MULTIPLAZA   
+43                  NACIONES UNIDAS   
+44                NICOLAS ARRIOLA 1   
+45                NICOLAS ARRIOLA 2   
+46                   NICOLAS AYLLON   
+47                         ORRANTIA   
+48                 OVALO 200 MILLAS   
+49                 OVALO MIRAFLORES   
+
+                                                    1                  2  \
+0                                  AV. SAENZ PEÑA 936             CALLAO   
+1   AV. RICARDO E. APARICIO 675, MZ. H LT. 1 - URB...          LA MOLINA   
+2                                       LT. C, SEC. 1                NaN   
+3   AV. JAVIER PRADO ESTE 2010, MZ. I-2, LC 133-13...          SAN BORJA   
+4                                           SAN BORJA                NaN   
+5    AV. LA FONTANA 371, MZ. A LT. 7, URB. LA FONTANA          LA MOLINA   
+6                                 AV. MANCO CAPAC 300        LA VICTORIA   
+7                                       AV. LARCO 631         MIRAFLORES   
+8                          AV. LAS BEGONIAS 425 - 429         SAN ISIDRO   
+9    AV. PROCERES DE LA INDEPENDENCIA N.- 1643-1643 A        SAN JUAN DE   
+10                                                NaN         LURIGANCHO   
+11  CALLE LAS TIENDAS 209, ALT. CDRA. 7 Y 8 AV. AR...          SURQUILLO   
+12               JR. CARABAYA 831 – JR. CONTUMAZA 846               LIMA   
+13  AV. ELMERT FAUCETT N°2121 LOCALES N° 2-101, 2-...             CALLAO   
+14  AV. AVIACIÓN 3328, MZ. B1 LT. 6, URB. LAS MAGN...          SAN BORJA   
+15                            AV. IGNACIO MERINO 2099              LINCE   
+16  AV. PRIMAVERA 2180-2190, ESQ. CON AV. CENTRAL ...  SANTIAGO DE SURCO   
+17                                   MONTERRICO CHICO                NaN   
+18                             ALFREDO MENDIOLA 3685.         LOS OLIVOS   
+19                               AV. DOS DE MAYO 1198         SAN ISIDRO   
+20                         AV. SANTIAGO DE SURCO 3642  SANTIAGO DE SURCO   
+21  MZ. F LT. 1 Y 2, ASOC. DE PROPIETARIOS DE LA U...              LURIN   
+22                                         VIRREYNAS.                NaN   
+23             JR. FCO. BOLOGNESI 399 Y JR. TACNA 696  MAGDALENA DEL MAR   
+24                                       JR. REAL 305               MALA   
+25  AV. OSCAR R. BENAVIDES 3866, URB. EL AGUILA, L...             CALLAO   
+26                                               1002                NaN   
+27  AV. CARRETERA CENTRAL 111, LOCAL COMERCIAL N° ...        SANTA ANITA   
+28  Local CFS-0132 - Av. Los Lirios N° 301, distri...        SAN JUAN DE   
+29       Miraflores, provincia y departamento de Lima         MIRAFLORES   
+30                                 AV. LA MARINA 2671         SAN MIGUEL   
+31  AV. LA CULTURA S/N TIENDA N-2 ALT KM 3.5 CARRE...        SANTA ANITA   
+32                                            CENTRAL                NaN   
+33                         AV. LIMA 2500, LOCAL L-116  VILLA EL SALVADOR   
+34  AV. ALFREDO MENDIOLA 3698 - C. C. CONO NORTE, ...      INDEPENDENCIA   
+35                                                  3                NaN   
+36  AV. ALFONSO UGARTE 279-293, ESQ. PLAZA CASTILL...               LIMA   
+37                                              1148.                NaN   
+38                                     AV. MEXICO 568        LA VICTORIA   
+39                  CENTRO COMERCIAL MINKA PABELLÓN 2             CALLAO   
+40                                     AV. LARCO 1204         MIRAFLORES   
+41   CALLE MONTE GRANDE 133 - CHACARILLA DEL ESTANQUE  SANTIAGO DE SURCO   
+42                       AV. CARLOS IZAGUIRRE N.- 275      INDEPENDENCIA   
+43                          Av. Jorge Chavez Cuadra 2         MIRAFLORES   
+44                            AV. NICOLAS ARRIOLA 607        LA VICTORIA   
+45                           AV. NICOLAS ARRIOLA 1799        LA VICTORIA   
+46                       AV. NICOLAS AYLLON 2032-2036                ATE   
+47                         AV. ALBERTO DEL CAMPO 1006  MAGDALENA DEL MAR   
+48                             AV. ELMER FAUCETT 6000             CALLAO   
+49                              AV. JOSE PARDO N° 320         MIRAFLORES   
+
+         3     4  
+0     LIMA  LIMA  
+1     LIMA  LIMA  
+2      NaN   NaN  
+3     LIMA  LIMA  
+4      NaN   NaN  
+5     LIMA  LIMA  
+6     LIMA  LIMA  
+7     LIMA  LIMA  
+8     LIMA  LIMA  
+9     LIMA  LIMA  
+10     NaN   NaN  
+11    LIMA  LIMA  
+12    LIMA  LIMA  
+13    LIMA  LIMA  
+14    LIMA  LIMA  
+15    LIMA  LIMA  
+16    LIMA  LIMA  
+17     NaN   NaN  
+18    LIMA  LIMA  
+19    LIMA  LIMA  
+20    LIMA  LIMA  
+21    LIMA  LIMA  
+22     NaN   NaN  
+23    LIMA  LIMA  
+24  CAÑETE  LIMA  
+25    LIMA  LIMA  
+26     NaN   NaN  
+27    LIMA  LIMA  
+28    LIMA  LIMA  
+29     NaN   NaN  
+30    LIMA  LIMA  
+31    LIMA  LIMA  
+32     NaN   NaN  
+33    LIMA  LIMA  
+34    LIMA  LIMA  
+35     NaN   NaN  
+36    LIMA  LIMA  
+37     NaN   NaN  
+38    LIMA  LIMA  
+39    LIMA  LIMA  
+40    LIMA  LIMA  
+41    LIMA  LIMA  
+42    LIMA  LIMA  
+43    LIMA  LIMA  
+44    LIMA  LIMA  
+45    LIMA  LIMA  
+46    LIMA  LIMA  
+47    LIMA  LIMA  
+48    LIMA  LIMA  
+49    LIMA  LIMA  ,                                0  \
+0                 OVALO NARANJAL   
+1                 ÓVALO QUIÑONEZ   
+2                          PALAO   
+3                          PANDO   
+4                          PARDO   
+5                   PARINACOCHAS   
+6                PARQUE CASTILLA   
+7           PARQUE DE LA AMISTAD   
+8                            NaN   
+9                         PARURO   
+10        PASEO DE LA CASTELLANA   
+11                 PLAZA BUTTERS   
+12          PLAZA DEL SOL HUACHO   
+13              PLAZA LIMA NORTE   
+14                           NaN   
+15                PLAZA LIMA SUR   
+16                PLAZA SAN JOSÉ   
+17                           NaN   
+18                   PLAZA UNIÓN   
+19  PQUE. IND. VILLA EL SALVADOR   
+20                           PRO   
+21                 PUENTE PIEDRA   
+22                           NaN   
+23                     PURUCHUCO   
+24                           NaN   
+25      REAL PLAZA CENTRO CIVICO   
+26                           NaN   
+27          REAL PLAZA SALAVERRY   
+28                        REPSOL   
+29                 RICARDO PALMA   
+30                         RIMAC   
+31                     RINCONADA   
+32                     SALAMANCA   
+33                     SALAVERRY   
+34                           NaN   
+35            SAMUEL DEL ALCAZAR   
+36                   SAN ANTONIO   
+37                     SAN BORJA   
+38                 SAN BORJA SUR   
+39                           NaN   
+40                    SAN FELIPE   
+41              SAN FELIPE COMAS   
+42                           NaN   
+43                    SAN ISIDRO   
+44        SAN JUAN DE MIRAFLORES   
+45                           NaN   
+46                      SAN LUIS   
+47          SAN MARTIN DE PORRES   
+48                    SAN RAFAEL   
+49                   SANTA ANITA   
+
+                                                    1                     2  \
+0                  AV. NARANJAL 1425, LOTE 13, MZ I-2            LOS OLIVOS   
+1     AV. GUARDIA CIVIL N° 787, URB. CORPAC 3RA. ZONA             SAN BORJA   
+2   AVENIDA ALFREDO MENDIOLA 821-827 - URB. PALAO,...  SAN MARTIN DE PORRES   
+3                      AV. LA MARINA 2300, URB. PANDO            SAN MIGUEL   
+4                           AV. PARDO 791 - 793 - 795            MIRAFLORES   
+5           AV. MEXICO 1298, ESQ. PROLG. PARINACOCHAS           LA VICTORIA   
+6                             AV. JULIO C. TELLO 1002                 LINCE   
+7   CA. MERCADERES ESQ. CA. ARTESANOS, MZ. D3, SUB...     SANTIAGO DE SURCO   
+8                                               AL 12                   NaN   
+9                               JR. PARURO N°875- 877                  LIMA   
+10      AV. PASEO DE LA CASTELLANA NRO. 101, 103, 107     SANTIAGO DE SURCO   
+11                                  PLAZA BUTTERS 301              BARRANCO   
+12            CALLE COLON 601 CC PLAZA DEL SOL HUACHO                HUACHO   
+13  CRUCE AV. TOMAS VALLE CON PANAMERICANA NORTE, ...         INDEPENDENCIA   
+14                                              CF-06                   NaN   
+15  AV. PROLG. PASEO DE LA REPÚBLICA S/N - CCPLAZA...            CHORRILLOS   
+16  CALLE HUAMACHUCO 1301-1307-1309, ESQ. CON REPÚ...           JESUS MARIA   
+17                                 DOMINICANA 504-522                   NaN   
+18                               AV. ARGENTINA N. 500                  LIMA   
+19  MZ. M1, LT. 1 Y 2, PARCELA II, PARQUE INDUSTRI...     VILLA EL SALVADOR   
+20                          AV. ALFREDO MENDIOLA 7859            LOS OLIVOS   
+21  CARRETERA  PANAMERICANA  URB. SANTO DOMINGO MZ...         PUENTE PIEDRA   
+22                                                  4                   NaN   
+23  Local LS-201 - Av. Nicolás Ayllón N° 4770, dis...                   ATE   
+24                   provincia y departamento de Lima                   NaN   
+25  AV. PASEO LA REPÚBLICA S/N Y CRUCE CON AV. BOL...                  LIMA   
+26                                              LS-15                   NaN   
+27           AV. GENERAL FELIPE SALAVERRY 2370, LS-04           JESUS MARIA   
+28                        KM. 25 CARRETERA VENTANILLA            VENTANILLA   
+29                        AV. RICARDO PALMA 296 - 298            MIRAFLORES   
+30  JR. TOMÁS MOYA N° 501 Y JR. QUITO YUPANQUI N° ...                 RIMAC   
+31                            AV. LA UNIVERSIDAD 1810             LA MOLINA   
+32                 AV. LOS PARACAS 203 URB. SALAMANCA                   ATE   
+33  AV. SALAVERRY 3230 ESQ. CON CALLE DIONISIO ANC...     MAGDALENA DEL MAR   
+34                                              - 425                   NaN   
+35                     AV. AMANCAES N° 192 - 194 -198                 RIMAC   
+36                               AV. 28 DE JULIO 1324            MIRAFLORES   
+37                             AV. AVIACION 2465-2467             SAN BORJA   
+38  CA. CHOPIN MZ. A-16 LT. 29, ESQ. CON AV. SAN L...             SAN BORJA   
+39                                    BORJA, II ETAPA                   NaN   
+40                     RESIDENCIAL SAN FELIPE TDA. 23           JESUS MARIA   
+41  AV. UNIVERSITARIA 10583-10587, MZ. X LT. 3 - S...                 COMAS   
+42                                             FELIPE                   NaN   
+43                       AV. REPUBLICA DE PANAMÁ 3055            SAN ISIDRO   
+44                              AV. DE LOS HEROES 502           SAN JUAN DE   
+45                                                NaN            MIRAFLORES   
+46                         AV. JAVIER PRADO ESTE 2884             SAN BORJA   
+47                                      AV. PERÚ 2254  SAN MARTIN DE PORRES   
+48                                  AV. COLONIAL 1381                  LIMA   
+49                             CALLE LAS ALONDRAS 257           SANTA ANITA   
+
+         3     4  
+0     LIMA  LIMA  
+1     LIMA  LIMA  
+2     LIMA  LIMA  
+3     LIMA  LIMA  
+4     LIMA  LIMA  
+5     LIMA  LIMA  
+6     LIMA  LIMA  
+7     LIMA  LIMA  
+8      NaN   NaN  
+9     LIMA  LIMA  
+10    LIMA  LIMA  
+11    LIMA  LIMA  
+12  HUAURA  LIMA  
+13    LIMA  LIMA  
+14     NaN   NaN  
+15    LIMA  LIMA  
+16    LIMA  LIMA  
+17     NaN   NaN  
+18    LIMA  LIMA  
+19    LIMA  LIMA  
+20    LIMA  LIMA  
+21    LIMA  LIMA  
+22     NaN   NaN  
+23    LIMA  LIMA  
+24     NaN   NaN  
+25    LIMA  LIMA  
+26     NaN   NaN  
+27    LIMA  LIMA  
+28    LIMA  LIMA  
+29    LIMA  LIMA  
+30    LIMA  LIMA  
+31    LIMA  LIMA  
+32    LIMA  LIMA  
+33    LIMA  LIMA  
+34     NaN   NaN  
+35    LIMA  LIMA  
+36    LIMA  LIMA  
+37    LIMA  LIMA  
+38    LIMA  LIMA  
+39     NaN   NaN  
+40    LIMA  LIMA  
+41    LIMA  LIMA  
+42     NaN   NaN  
+43    LIMA  LIMA  
+44    LIMA  LIMA  
+45     NaN   NaN  
+46    LIMA  LIMA  
+47    LIMA  LIMA  
+48    LIMA  LIMA  
+49    LIMA  LIMA  ,                           0  \
+0                SANTA CRUZ   
+1              SANTA MONICA   
+2        SEBASTIÁN BARRANCA   
+3                       NaN   
+4     SEPARADORA INDUSTRIAL   
+5     STRIP CENTER PROCERES   
+6                       NaN   
+7                 SURQUILLO   
+8             TOMAS MARSANO   
+9      UNIVERSIDAD CATOLICA   
+10     UNIVERSITARIA FREIRE   
+11           V. A. BELAUNDE   
+12             VALLE SHARON   
+13                      NaN   
+14           VARGAS MACHUCA   
+15                      NaN   
+16           VELASCO ASTETE   
+17              VENEZUELA 1   
+18              VENEZUELA 2   
+19              VENEZUELA 3   
+20               VENTANILLA   
+21        VILLA EL SALVADOR   
+22                      NaN   
+23  VILLA MARIA DEL TRIUNFO   
+24                      NaN   
+25             VILLA MARINA   
+26                  VITARTE   
+27                   ZARATE   
+28                      NaN   
+29    STRIP CENTER BARRANCA   
+30                 ALMENARA   
+31          TMR CAMINO REAL   
+32             EMBAJADA USA   
+33                    USAID   
+34                      NaN   
+35      NESTLE-DONOFRIO 164   
+36   BIENESTAR DE LA MARINA   
+37                  SEDAPAL   
+38                      NaN   
+39          ESPECIAL SENATI   
+40           VILLA INFANTAS   
+41                      NaN   
+42                    BELEN   
+43                  IQUITOS   
+44                 SAN JUAN   
+45               YURIMAGUAS   
+46         PUERTO MALDONADO   
+47                      ILO   
+48                 MOQUEGUA   
+49                      NaN   
+
+                                                    1                  2  \
+0                               Av. Santa Cruz N° 695         MIRAFLORES   
+1                                 AV. JUAN PEZET 1425         SAN ISIDRO   
+2   AV. IQUITOS 795-799, ESQ. CON SEBASTIÁN BARRAN...        LA VICTORIA   
+3                                                 213                NaN   
+4                                   AV. LA MOLINA 540          LA MOLINA   
+5   AV. LOS PROCERES (ANTES AV. GUARDIA CIVIL) 100...  SANTIAGO DE SURCO   
+6                                  FUNDO SANTA AMALIA                NaN   
+7                               AV. ANGAMOS ESTE 1256          SURQUILLO   
+8                            AV. TOMAS MARSANO N° 399          SURQUILLO   
+9   AV. UNIVERSITARIA CDRA. 18 - INTERIOR U. CATOLICA         SAN MIGUEL   
+10    AV. UNIVERSITARIA N° 727, URB. PANDO 4TA. ETAPA         SAN MIGUEL   
+11  CA. VICTOR A. BELAUNDE ESTE 101 URB. POPULAR R...              COMAS   
+12  AV. VICTOR C. IGLESIAS 790-792-794-796-798 - U...        SAN JUAN DE   
+13                              VIVIENDA VALLE SHARON         MIRAFLORES   
+14     AV. VARGAS MACHUCA 475,  ESQ. PEDRO BERTONELLI        SAN JUAN DE   
+15                                                NaN         MIRAFLORES   
+16  AV. CAMINOS DEL INCA 1403-1395-1399 - URB. LAS...  SANTIAGO DE SURCO   
+17                                  AV. VENEZUELA 635              BREÑA   
+18                                 AV. VENEZUELA 1842               LIMA   
+19                                 AV. VENEZUELA 1254              BREÑA   
+20           MALECÓN ANDRÉS A. CÁCERES MZ C-3, LT. 19         VENTANILLA   
+21  SEC. SEGUNDO, GRUPO RESIDENCIAL 10,MZ G LT. 17...  VILLA EL SALVADOR   
+22                                         REVOLUCIÓN                NaN   
+23  AV. PACHACÚTEC 2101, PRIMER HOGAR POLICIAL, ASOC.    VILLA MARIA DEL   
+24                                  CENTRAL UNIFICADA            TRIUNFO   
+25                          AV. GUARDIA CIVIL 152-156         CHORRILLOS   
+26                                   AV. PROGRESO 102                ATE   
+27                      AV. GRAN CHIMU 399 URB.ZARATE        SAN JUAN DE   
+28                                                NaN         LURIGANCHO   
+29                          CA. CASTILLA 370, LOCAL 1           BARRANCA   
+30                            JIRÓN  CANGALLO N.- 180        LA VICTORIA   
+31  AV. CAMINO REAL N° 355, 349 Y CALLE CONQUISTAD...         SAN ISIDRO   
+32     AV. LA ENCALADA  S/N -EMBAJADA ESTADOS UNIDOS.  SANTIAGO DE SURCO   
+33  AV. LA ENCALADA  S/N - EDIFICIO N° 2, EMBAJADA...  SANTIAGO DE SURCO   
+34                                             UNIDOS                NaN   
+35                                 AV. VENEZUELA 2580               LIMA   
+36                          AV. VENEZUELA S/N CDRA 34         SAN MIGUEL   
+37  KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...        EL AGUSTINO   
+38                                           SEDAPAL)                NaN   
+39                          AV. ALFREDO MENDIOLA 3520      INDEPENDENCIA   
+40  MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...         LOS OLIVOS   
+41                                     COMERCIAL N° 2                NaN   
+42                                      PROSPERO 1195            IQUITOS   
+43                                 SARGENTO LORES 171            IQUITOS   
+44                    CA. JOSE ABELARDO QUIÑONES 1780            IQUITOS   
+45                             SARGENTO LORES 130-132         YURIMAGUAS   
+46           JR. AREQUIPA No 245 – 249, MZ D, LOTE 5.          TAMBOPATA   
+47                 PASAJE MALATESTA 130, JR ABTAO 523                ILO   
+48  AV CIRCUNVALACIÓN LOTE 1B SUB LOTE 1 FDO. EL G...           MOQUEGUA   
+49                                                S/N                NaN   
+
+                 3              4  
+0             LIMA           LIMA  
+1             LIMA           LIMA  
+2             LIMA           LIMA  
+3              NaN            NaN  
+4             LIMA           LIMA  
+5             LIMA           LIMA  
+6              NaN            NaN  
+7             LIMA           LIMA  
+8             LIMA           LIMA  
+9             LIMA           LIMA  
+10            LIMA           LIMA  
+11            LIMA           LIMA  
+12            LIMA           LIMA  
+13             NaN            NaN  
+14            LIMA           LIMA  
+15             NaN            NaN  
+16            LIMA           LIMA  
+17            LIMA           LIMA  
+18            LIMA           LIMA  
+19            LIMA           LIMA  
+20            LIMA           LIMA  
+21            LIMA           LIMA  
+22             NaN            NaN  
+23            LIMA           LIMA  
+24             NaN            NaN  
+25            LIMA           LIMA  
+26            LIMA           LIMA  
+27            LIMA           LIMA  
+28             NaN            NaN  
+29        BARRANCA           LIMA  
+30            LIMA           LIMA  
+31            LIMA           LIMA  
+32            LIMA           LIMA  
+33            LIMA           LIMA  
+34             NaN            NaN  
+35            LIMA           LIMA  
+36            LIMA           LIMA  
+37            LIMA           LIMA  
+38             NaN            NaN  
+39            LIMA           LIMA  
+40            LIMA           LIMA  
+41             NaN            NaN  
+42          MAYNAS         LORETO  
+43          MAYNAS         LORETO  
+44          MAYNAS         LORETO  
+45   ALTO AMAZONAS         LORETO  
+46       TAMBOPATA  MADRE DE DIOS  
+47             ILO       MOQUEGUA  
+48  MARISCAL NIETO       MOQUEGUA  
+49             NaN            NaN  ,                         0                                                  1  \
+0          CERRO DE PASCO  JR. JOSE DE SAN MARTIN. EDIFICIO 2. CENTRO COM...   
+1                     NaN                                         JUAN PAMPA   
+2        PASEO MEGA PIURA  Av. RAMON MUJICA N° 108, LOCAL 108-A, URBANIZA...   
+3                     NaN                                              CHIPE   
+4       MDO. MODELO PIURA                             AV. SANCHEZ CERRO 1234   
+5        OPEN PLAZA PIURA  AV. MARISCAL CÁCERES, ESQ. AV. IRAZOLA, SUB LT...   
+6                     NaN                                    URB. MIRAFLORES   
+7                   PAITA                                   JR. JUNÍN N° 263   
+8                   PIURA             CALLE TACNA 598 / AYACUCHO 440 - PIURA   
+9        REAL PLAZA PIURA  AV. SÁNCHEZ CERRO, SUB LOTE NÚMERO 234 - 239A,...   
+10                    NaN                                                 02   
+11     SANTA ROSA SULLANA  AV. PANAMERICANA 461 CON CA. SANTO TORIBIO, LC...   
+12                    NaN                                         SANTA ROSA   
+13                SULLANA                       JR. SAN MARTIN 900 - SULLANA   
+14                 TALARA                 CENTRO CIVICO 159 - BREA Y PARIÑAS   
+15   TMR PASEO MEGA PIURA  Av. RAMON MUJICA N° 108, OFICINA N° 201, URBAN...   
+16                    NaN                                              CHIPE   
+17                JULIACA                        JR. SAN ROMAN 441 - JULIACA   
+18                   PUNO                           JR. LIMA 400 - 411 -PUNO   
+19     REAL PLAZA JULIACA  JR. SAN MARTIN 218 Y JR. TUMBES 499, CC REAL P...   
+20                    NaN                                           LC LS-02   
+21        BARRIO COMERCIO            JR. TAHUANTINSUYO  298, BARRIO COMERCIO   
+22  BELLAVISTA SAN MARTIN   ESQ AV SAN MARTIN C-5 Y AV. AUGUSTO B LEGUÍA C-7   
+23                JUANJUI           ESQUINA JIRÓN HUALLAGA CON EL JIRÓN GRAU   
+24                    NaN                                                NaN   
+25              MOYOBAMBA                             JR. SAN MARTIN 490-494   
+26                  RIOJA            JR. DOS DE MAYO 702 - BARRIO CASCAYUNGA   
+27               TARAPOTO                            JR. RAMIREZ HURTADO 149   
+28              BOLOGNESI                           AV. CORONEL MENDOZA 1337   
+29                  TACNA                         AV. SAN MARTIN 665 - TACNA   
+30                 TUMBES                                    JR. BOLIVAR 237   
+31             7 DE JUNIO                           JIRÓN 7 DE JUNIO N.- 201   
+32                    NaN                                                NaN   
+33    OPEN PLAZA PUCALLPA  AV. CENTENARIO 2086 Y 2192, JR. LAUREANO DEL Á...   
+34                    NaN                                  AV. AMAZONAS 2752   
+35               PUCALLPA                     ESQUINA UCAYALI Y RAYMONDI 699   
+36                    NaN                                                NaN   
+
+              2           3           4  
+0     YANACOCHA       PASCO       PASCO  
+1           NaN         NaN         NaN  
+2         PIURA       PIURA       PIURA  
+3           NaN         NaN         NaN  
+4         PIURA       PIURA       PIURA  
+5         PIURA       PIURA       PIURA  
+6           NaN         NaN         NaN  
+7         PAITA       PAITA       PIURA  
+8         PIURA       PIURA       PIURA  
+9         PIURA       PIURA       PIURA  
+10          NaN         NaN         NaN  
+11      SULLANA     SULLANA       PIURA  
+12          NaN         NaN         NaN  
+13      SULLANA     SULLANA       PIURA  
+14      PARIÑAS      TALARA       PIURA  
+15        PIURA       PIURA       PIURA  
+16          NaN         NaN         NaN  
+17      JULIACA   SAN ROMAN        PUNO  
+18         PUNO        PUNO        PUNO  
+19      JULIACA   SAN ROMAN        PUNO  
+20          NaN         NaN         NaN  
+21     TARAPOTO  SAN MARTIN  SAN MARTIN  
+22   BELLAVISTA  BELLAVISTA  SAN MARTIN  
+23      JUANJUI    MARISCAL  SAN MARTIN  
+24          NaN     CÁCERES         NaN  
+25    MOYOBAMBA   MOYOBAMBA  SAN MARTIN  
+26        RIOJA       RIOJA  SAN MARTIN  
+27     TARAPOTO  SAN MARTIN  SAN MARTIN  
+28        TACNA       TACNA       TACNA  
+29        TACNA       TACNA       TACNA  
+30       TUMBES      TUMBES      TUMBES  
+31     CALLERIA     CORONEL     UCAYALI  
+32          NaN    PORTILLO         NaN  
+33  YARINACOCHA     CORONEL     UCAYALI  
+34          NaN    PORTILLO         NaN  
+35     CALLERIA     CORONEL     UCAYALI  
+36          NaN    PORTILLO         NaN  ]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unimos cada DataFrame contenida en la lista pdf_data a través del método concat de la librería panda</span>
+<span class="n">data_unida</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Se selecciona las filas y columnas con los datos necesarios y se reinicia el índice</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data_unida</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="mi">2</span><span class="p">:</span> <span class="p">,</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Generamos el nombre de las columnas o de las variables y se logra el DataFrame final</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OFICINA&#39;</span><span class="p">,</span><span class="s1">&#39;DIRECCION&#39;</span><span class="p">,</span><span class="s1">&#39;DISTRITO&#39;</span><span class="p">,</span><span class="s1">&#39;PROVINCIA&#39;</span><span class="p">,</span><span class="s1">&#39;DEPARTAMENTO&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">headers</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BAGUA GRANDE</td>
+      <td>AV. CHACHAPOYAS 2044</td>
+      <td>BAGUA GRANDE</td>
+      <td>UTCUBAMBA</td>
+      <td>AMAZONAS</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CHIMBOTE</td>
+      <td>AV. FRANCISCO BOLOGNESI 696 - CHIMBOTE</td>
+      <td>CHIMBOTE</td>
+      <td>SANTA</td>
+      <td>ANCASH</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HUARAZ</td>
+      <td>CALLE 2 ESQ. JR. JOSE SUCRE - PLAZA DE ARMAS</td>
+      <td>HUARAZ</td>
+      <td>HUARAZ</td>
+      <td>ANCASH</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MEGAPLAZA CHIMBOTE</td>
+      <td>AV. VICTOR R. HAYA DE LA TORRE 4694, LC B4 Y B...</td>
+      <td>CHIMBOTE</td>
+      <td>SANTA</td>
+      <td>ANCASH</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>GRAN CHAVIN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>369</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>PORTILLO</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>370</th>
+      <td>OPEN PLAZA PUCALLPA</td>
+      <td>AV. CENTENARIO 2086 Y 2192, JR. LAUREANO DEL Á...</td>
+      <td>YARINACOCHA</td>
+      <td>CORONEL</td>
+      <td>UCAYALI</td>
+    </tr>
+    <tr>
+      <th>371</th>
+      <td>NaN</td>
+      <td>AV. AMAZONAS 2752</td>
+      <td>NaN</td>
+      <td>PORTILLO</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>372</th>
+      <td>PUCALLPA</td>
+      <td>ESQUINA UCAYALI Y RAYMONDI 699</td>
+      <td>CALLERIA</td>
+      <td>CORONEL</td>
+      <td>UCAYALI</td>
+    </tr>
+    <tr>
+      <th>373</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>PORTILLO</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>374 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generamos un dataframe solo de Lima Departamento</span>
+<span class="n">data_lima</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;DEPARTAMENTO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LIMA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_lima</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CAMINO REAL</td>
+      <td>NaN</td>
+      <td>AV. CAMINO REAL 355</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>28 DE JULIO</td>
+      <td>NaN</td>
+      <td>AV. 28 DE JULIO 775</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABANCAY-CONGRESO</td>
+      <td>NaN</td>
+      <td>AV. ABANCAY 260-262</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEROPUERTO</td>
+      <td>NaN</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A</td>
+      <td>CALLAO</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANGAMOS ESTE</td>
+      <td>NaN</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>NESTLE-DONOFRIO 164</td>
+      <td>AV. VENEZUELA 2580</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>BIENESTAR DE LA MARINA</td>
+      <td>AV. VENEZUELA S/N CDRA 34</td>
+      <td>SAN MIGUEL</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>203</th>
+      <td>SEDAPAL</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>EL AGUSTINO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>204</th>
+      <td>ESPECIAL SENATI</td>
+      <td>AV. ALFREDO MENDIOLA 3520</td>
+      <td>INDEPENDENCIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>VILLA INFANTAS</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>LOS OLIVOS</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+  </tbody>
+</table>
+<p>206 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Identificamos la cantidad de filas con valores perdidos</span>
+<span class="n">filas_perdidos</span> <span class="o">=</span> <span class="n">data_lima</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data_lima_perdidos</span> <span class="o">=</span> <span class="n">data_lima</span><span class="p">[</span><span class="n">filas_perdidos</span><span class="p">]</span>
+<span class="n">data_lima_perdidos</span>
+<span class="c1"># Así identificamos que la primeras 14 filas tienen datos perdidos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CAMINO REAL</td>
+      <td>NaN</td>
+      <td>AV. CAMINO REAL 355</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>28 DE JULIO</td>
+      <td>NaN</td>
+      <td>AV. 28 DE JULIO 775</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABANCAY-CONGRESO</td>
+      <td>NaN</td>
+      <td>AV. ABANCAY 260-262</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEROPUERTO</td>
+      <td>NaN</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A</td>
+      <td>CALLAO</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANGAMOS ESTE</td>
+      <td>NaN</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>ANGAMOS OPEN PLAZA</td>
+      <td>NaN</td>
+      <td>AV. ANGAMOS 1803, CC OPEN PLAZA ANGAMOS, TDA L...</td>
+      <td>SURQUILLO</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>APOLO</td>
+      <td>NaN</td>
+      <td>AV. MEXICO 1700</td>
+      <td>LA VICTORIA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>ARAMBURU</td>
+      <td>NaN</td>
+      <td>AV. ARAMBURU N° 154-158-162- MIRAFLORES</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>ARENALES</td>
+      <td>NaN</td>
+      <td>AV. ARENALES 701</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>AV. CENTRAL</td>
+      <td>NaN</td>
+      <td>AV. BASADRE 133</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>AV. DEL EJERCITO</td>
+      <td>NaN</td>
+      <td>AV. DEL EJERCITO 789 ESQUINA CALLE JOSE TORIBI...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>AV. PERU</td>
+      <td>NaN</td>
+      <td>AV. PERU 3442-3444</td>
+      <td>SAN MARTIN DE PORRES</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>AV. SUCRE</td>
+      <td>NaN</td>
+      <td>AV. SUCRE 970</td>
+      <td>PUEBLO LIBRE</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>AVIACIÓN</td>
+      <td>NaN</td>
+      <td>AV. AVIACION  2801-2805</td>
+      <td>SAN BORJA</td>
+      <td>LIMA</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_lima</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Reemplazar contenido de columna 1 con contenido de columna 2</span>
+<span class="n">data_lima</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># Reemplazar contenido de columna 2 con contenido de columna 3</span>
+<span class="n">data_lima</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;LIMA&quot;</span>  <span class="c1"># Llenar columna 3 con &quot;LIMA&quot;</span>
+<span class="n">data_lima</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;LIMA&quot;</span>  <span class="c1"># Llenar columna 4 con &quot;LIMA&quot;</span>
+<span class="n">data_lima_final</span> <span class="o">=</span> <span class="n">data_lima</span><span class="p">[</span><span class="n">data_lima</span><span class="p">[</span><span class="s1">&#39;PROVINCIA&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LIMA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_lima_final</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CAMINO REAL</td>
+      <td>AV. CAMINO REAL 355</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>28 DE JULIO</td>
+      <td>AV. 28 DE JULIO 775</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABANCAY-CONGRESO</td>
+      <td>AV. ABANCAY 260-262</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEROPUERTO</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A</td>
+      <td>CALLAO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANGAMOS ESTE</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>NESTLE-DONOFRIO 164</td>
+      <td>AV. VENEZUELA 2580</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>BIENESTAR DE LA MARINA</td>
+      <td>AV. VENEZUELA S/N CDRA 34</td>
+      <td>SAN MIGUEL</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>SEDAPAL</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>EL AGUSTINO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>ESPECIAL SENATI</td>
+      <td>AV. ALFREDO MENDIOLA 3520</td>
+      <td>INDEPENDENCIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>VILLA INFANTAS</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>LOS OLIVOS</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+    </tr>
+  </tbody>
+</table>
+<p>198 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_lima_final</span><span class="p">[</span><span class="s2">&quot;DIRECCION COMPLETA&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;DIRECCION&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;DISTRITO&#39;</span><span class="p">]</span>
+<span class="n">data_lima_final</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+      <th>DIRECCION COMPLETA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CAMINO REAL</td>
+      <td>AV. CAMINO REAL 355</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. CAMINO REAL 355, SAN ISIDRO</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>28 DE JULIO</td>
+      <td>AV. 28 DE JULIO 775</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. 28 DE JULIO 775, LIMA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABANCAY-CONGRESO</td>
+      <td>AV. ABANCAY 260-262</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. ABANCAY 260-262, LIMA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEROPUERTO</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A</td>
+      <td>CALLAO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A, ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANGAMOS ESTE</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>NESTLE-DONOFRIO 164</td>
+      <td>AV. VENEZUELA 2580</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VENEZUELA 2580, LIMA</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>BIENESTAR DE LA MARINA</td>
+      <td>AV. VENEZUELA S/N CDRA 34</td>
+      <td>SAN MIGUEL</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VENEZUELA S/N CDRA 34, SAN MIGUEL</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>SEDAPAL</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>EL AGUSTINO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>ESPECIAL SENATI</td>
+      <td>AV. ALFREDO MENDIOLA 3520</td>
+      <td>INDEPENDENCIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. ALFREDO MENDIOLA 3520, INDEPENDENCIA</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>VILLA INFANTAS</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>LOS OLIVOS</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+    </tr>
+  </tbody>
+</table>
+<p>198 rows × 6 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmaps</span> <span class="o">=</span> <span class="n">googlemaps</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;AIzaSyD_4E6Hd-fYECy3mZ4asxN23JjIstvLdoE&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span> <span class="n">result_api</span> <span class="p">):</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">result_api</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;geometry&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">result_api</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;geometry&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="s1">&#39;lng&#39;</span><span class="p">]</span>  
+        
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    
+    <span class="k">return</span> <span class="p">(</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_lima_final</span><span class="p">[</span><span class="s2">&quot;COORDENADAS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_results</span><span class="p">(</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;DIRECCION COMPLETA&quot;</span><span class="p">],</span> <span class="n">region</span> <span class="o">=</span> <span class="s2">&quot;PE&quot;</span><span class="p">)</span> <span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ApiError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_16876</span>\<span class="mf">2788067092.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">data_lima_final</span><span class="p">[</span><span class="s2">&quot;COORDENADAS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_results</span><span class="p">(</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;DIRECCION COMPLETA&quot;</span><span class="p">],</span> <span class="n">region</span> <span class="o">=</span> <span class="s2">&quot;PE&quot;</span><span class="p">)</span> <span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\pandas\core\frame.py</span> in <span class="ni">apply</span><span class="nt">(self, func, axis, raw, result_type, args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">8846</span>             <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">8847</span>         <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">8848</span>         <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;apply&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">8849</span> 
+<span class="g g-Whitespace">   </span><span class="mi">8850</span>     <span class="k">def</span> <span class="nf">applymap</span><span class="p">(</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\pandas\core\apply.py</span> in <span class="ni">apply</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">731</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_raw</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">732</span> 
+<span class="ne">--&gt; </span><span class="mi">733</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_standard</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">734</span> 
+<span class="g g-Whitespace">    </span><span class="mi">735</span>     <span class="k">def</span> <span class="nf">agg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\pandas\core\apply.py</span> in <span class="ni">apply_standard</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">855</span> 
+<span class="g g-Whitespace">    </span><span class="mi">856</span>     <span class="k">def</span> <span class="nf">apply_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">857</span>         <span class="n">results</span><span class="p">,</span> <span class="n">res_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_series_generator</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">858</span> 
+<span class="g g-Whitespace">    </span><span class="mi">859</span>         <span class="c1"># wrap results</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\pandas\core\apply.py</span> in <span class="ni">apply_series_generator</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">871</span>             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">series_gen</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">872</span>                 <span class="c1"># ignore SettingWithCopy here in case the user mutates</span>
+<span class="ne">--&gt; </span><span class="mi">873</span>                 <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span>                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ABCSeries</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>                     <span class="c1"># If we have a view on v, we need to make a copy because</span>
+
+<span class="nn">~\AppData\Local\Temp\ipykernel_16876\2788067092.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(x)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">data_lima_final</span><span class="p">[</span><span class="s2">&quot;COORDENADAS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_results</span><span class="p">(</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;DIRECCION COMPLETA&quot;</span><span class="p">],</span> <span class="n">region</span> <span class="o">=</span> <span class="s2">&quot;PE&quot;</span><span class="p">)</span> <span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\googlemaps\client.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">443</span>     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">444</span>         <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_extra_params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;extra_params&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">445</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span>         <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span>             <span class="k">del</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_extra_params</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\googlemaps\geocoding.py</span> in <span class="ni">geocode</span><span class="nt">(client, address, place_id, components, bounds, region, language)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span>         <span class="n">params</span><span class="p">[</span><span class="s2">&quot;language&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">language</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span> 
+<span class="ne">---&gt; </span><span class="mi">75</span>     <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="s2">&quot;/maps/api/geocode/json&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span> 
+<span class="g g-Whitespace">     </span><span class="mi">77</span> 
+
+<span class="nn">~\anaconda3\lib\site-packages\googlemaps\client.py</span> in <span class="ni">_request</span><span class="nt">(self, url, params, first_request_time, retry_counter, base_url, accepts_clientid, extract_body, requests_kwargs, post_json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">338</span>                 <span class="n">result</span> <span class="o">=</span> <span class="n">extract_body</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span>             <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">340</span>                 <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_body</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span>             <span class="bp">self</span><span class="o">.</span><span class="n">sent_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span>             <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">~\anaconda3\lib\site-packages\googlemaps\client.py</span> in <span class="ni">_get_body</span><span class="nt">(self, response)</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>                 <span class="n">api_status</span><span class="p">,</span> <span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span> 
+<span class="ne">--&gt; </span><span class="mi">369</span>         <span class="k">raise</span> <span class="n">googlemaps</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ApiError</span><span class="p">(</span><span class="n">api_status</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span>                                              <span class="n">body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span> 
+
+<span class="ne">ApiError</span>: REQUEST_DENIED (You must enable Billing on the Google Cloud Project at https://console.cloud.google.com/project/_/billing/enable Learn more at https://developers.google.com/maps/gmp-get-started)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Generamos latitud y longitud a partir de la variable coordenadas</span>
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;LATITUD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;COORDENADAS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">coord</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;LONGITUD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;COORDENADAS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">coord</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_lima_final</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+      <th>DIRECCION COMPLETA</th>
+      <th>COORDENADAS</th>
+      <th>LATITUD</th>
+      <th>LONGITUD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CAMINO REAL</td>
+      <td>AV. CAMINO REAL 355</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. CAMINO REAL 355, SAN ISIDRO</td>
+      <td>(-12.0973616, -77.0360994)</td>
+      <td>-12.0973616</td>
+      <td>-77.0360994</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>28 DE JULIO</td>
+      <td>AV. 28 DE JULIO 775</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. 28 DE JULIO 775, LIMA</td>
+      <td>(-12.0640305, -77.0379609)</td>
+      <td>-12.0640305</td>
+      <td>-77.0379609</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABANCAY-CONGRESO</td>
+      <td>AV. ABANCAY 260-262</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. ABANCAY 260-262, LIMA</td>
+      <td>(-12.0479547, -77.02699679999999)</td>
+      <td>-12.0479547</td>
+      <td>-77.02699679999999</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEROPUERTO</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A</td>
+      <td>CALLAO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A, ...</td>
+      <td>(-12.0235384, -77.10439749999999)</td>
+      <td>-12.0235384</td>
+      <td>-77.10439749999999</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANGAMOS ESTE</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>(-12.1134759, -77.028582)</td>
+      <td>-12.1134759</td>
+      <td>-77.028582</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>NESTLE-DONOFRIO 164</td>
+      <td>AV. VENEZUELA 2580</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VENEZUELA 2580, LIMA</td>
+      <td>(-12.0624481, -77.0935808)</td>
+      <td>-12.0624481</td>
+      <td>-77.0935808</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>BIENESTAR DE LA MARINA</td>
+      <td>AV. VENEZUELA S/N CDRA 34</td>
+      <td>SAN MIGUEL</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VENEZUELA S/N CDRA 34, SAN MIGUEL</td>
+      <td>(-12.0620255, -77.0924442)</td>
+      <td>-12.0620255</td>
+      <td>-77.0924442</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>SEDAPAL</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>EL AGUSTINO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>(-12.0386756, -76.976219)</td>
+      <td>-12.0386756</td>
+      <td>-76.976219</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>ESPECIAL SENATI</td>
+      <td>AV. ALFREDO MENDIOLA 3520</td>
+      <td>INDEPENDENCIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. ALFREDO MENDIOLA 3520, INDEPENDENCIA</td>
+      <td>(-11.9940687, -77.0630414)</td>
+      <td>-11.9940687</td>
+      <td>-77.0630414</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>VILLA INFANTAS</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>LOS OLIVOS</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>(-11.9638112, -77.063462)</td>
+      <td>-11.9638112</td>
+      <td>-77.063462</td>
+    </tr>
+  </tbody>
+</table>
+<p>198 rows × 9 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Creamos las coordenadas de las casas de cada integrante del grupo y la agregamos al dataset</span>
+
+<span class="n">lat_abel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">12.089472855226788</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+<span class="n">lng_abel</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">77.05897458982007</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+
+
+<span class="n">lat_afrania</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">12.08015452262831</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+<span class="n">lng_afrania</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">76.98883156110965</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+
+
+<span class="n">lat_cristian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">12.085940399091843</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+<span class="n">lng_cristian</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">77.09336276110959</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+
+
+<span class="n">lat_meir</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">12.083609662455098</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+<span class="n">lng_meir</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">((</span><span class="o">-</span><span class="mf">77.05365958823917</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_lima_final</span><span class="p">))</span>
+
+
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lat_abel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_abel</span>
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lng_abel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lng_abel</span>
+
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lat_afrania&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_afrania</span>
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lng_afrania&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lng_afrania</span>
+
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lat_cristian&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_cristian</span>
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lng_cristian&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lng_cristian</span>
+
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lat_meir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_meir</span>
+<span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;lng_meir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lng_meir</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_lima_final</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+      <th>DIRECCION COMPLETA</th>
+      <th>COORDENADAS</th>
+      <th>LATITUD</th>
+      <th>LONGITUD</th>
+      <th>lat_abel</th>
+      <th>lng_abel</th>
+      <th>lat_afrania</th>
+      <th>lng_afrania</th>
+      <th>lat_cristian</th>
+      <th>lng_cristian</th>
+      <th>lat_meir</th>
+      <th>lng_meir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CAMINO REAL</td>
+      <td>AV. CAMINO REAL 355</td>
+      <td>SAN ISIDRO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. CAMINO REAL 355, SAN ISIDRO</td>
+      <td>(-12.0973616, -77.0360994)</td>
+      <td>-12.0973616</td>
+      <td>-77.0360994</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>28 DE JULIO</td>
+      <td>AV. 28 DE JULIO 775</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. 28 DE JULIO 775, LIMA</td>
+      <td>(-12.0640305, -77.0379609)</td>
+      <td>-12.0640305</td>
+      <td>-77.0379609</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABANCAY-CONGRESO</td>
+      <td>AV. ABANCAY 260-262</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. ABANCAY 260-262, LIMA</td>
+      <td>(-12.0479547, -77.02699679999999)</td>
+      <td>-12.0479547</td>
+      <td>-77.02699679999999</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AEROPUERTO</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A</td>
+      <td>CALLAO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>CENTRO AÉREO COMERCIAL LOCALES 110 A Y 111 A, ...</td>
+      <td>(-12.0235384, -77.10439749999999)</td>
+      <td>-12.0235384</td>
+      <td>-77.10439749999999</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANGAMOS ESTE</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>Av. Angamos Este 215 - 227, esquina con Av. Pe...</td>
+      <td>(-12.1134759, -77.028582)</td>
+      <td>-12.1134759</td>
+      <td>-77.028582</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>NESTLE-DONOFRIO 164</td>
+      <td>AV. VENEZUELA 2580</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VENEZUELA 2580, LIMA</td>
+      <td>(-12.0624481, -77.0935808)</td>
+      <td>-12.0624481</td>
+      <td>-77.0935808</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>BIENESTAR DE LA MARINA</td>
+      <td>AV. VENEZUELA S/N CDRA 34</td>
+      <td>SAN MIGUEL</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VENEZUELA S/N CDRA 34, SAN MIGUEL</td>
+      <td>(-12.0620255, -77.0924442)</td>
+      <td>-12.0620255</td>
+      <td>-77.0924442</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>SEDAPAL</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>EL AGUSTINO</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>KM. 1 AUTOPISTA RAMIRO PRIALE (AL INTERIOR DE ...</td>
+      <td>(-12.0386756, -76.976219)</td>
+      <td>-12.0386756</td>
+      <td>-76.976219</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>ESPECIAL SENATI</td>
+      <td>AV. ALFREDO MENDIOLA 3520</td>
+      <td>INDEPENDENCIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. ALFREDO MENDIOLA 3520, INDEPENDENCIA</td>
+      <td>(-11.9940687, -77.0630414)</td>
+      <td>-11.9940687</td>
+      <td>-77.0630414</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>VILLA INFANTAS</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>LOS OLIVOS</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>MZ. K, SUB LOTE 4A, PARCELA A-1. LOTIZACIÓN IN...</td>
+      <td>(-11.9638112, -77.063462)</td>
+      <td>-11.9638112</td>
+      <td>-77.063462</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+  </tbody>
+</table>
+<p>198 rows × 17 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identificación de valores perdidos en forma de string</span>
+<span class="n">rows_with_na</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;nan&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cols_with_na</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;nan&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">na_cells</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows_with_na</span><span class="p">,</span> <span class="n">cols_with_na</span><span class="p">]</span>
+<span class="n">na_cells</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>LATITUD</th>
+      <th>LONGITUD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>38</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>162</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>177</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>184</th>
+      <td>nan</td>
+      <td>nan</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reemplazo de los valores string nan por valores perdidos</span>
+<span class="n">data_lima_final</span> <span class="o">=</span> <span class="n">data_lima_final</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">data_lima_final</span><span class="p">[</span> <span class="n">data_lima_final</span> <span class="p">[</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+      <th>DIRECCION COMPLETA</th>
+      <th>COORDENADAS</th>
+      <th>LATITUD</th>
+      <th>LONGITUD</th>
+      <th>lat_abel</th>
+      <th>lng_abel</th>
+      <th>lat_afrania</th>
+      <th>lng_afrania</th>
+      <th>lat_cristian</th>
+      <th>lng_cristian</th>
+      <th>lat_meir</th>
+      <th>lng_meir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>38</th>
+      <td>CAPON</td>
+      <td>JR. UCAYALI 735</td>
+      <td>LA VICTORIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>JR. UCAYALI 735, LA VICTORIA</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>EL MURO</td>
+      <td>AV. WIESSE TDA A, PROGR. CIUDAD MARISCAL CACER...</td>
+      <td>SAN JUAN DE</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. WIESSE TDA A, PROGR. CIUDAD MARISCAL CACER...</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>GAMARRA</td>
+      <td>PROLONG. UNANUE 1599</td>
+      <td>LA VICTORIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>PROLONG. UNANUE 1599, LA VICTORIA</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>HIPOLITO UNANUE</td>
+      <td>JR HIPOLITO UNANUE 1616-1620, LC 3</td>
+      <td>LA VICTORIA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>JR HIPOLITO UNANUE 1616-1620, LC 3, LA VICTORIA</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>MALL AVENTURA PLAZA SANTA ANITA</td>
+      <td>AV. CARRETERA CENTRAL 111, LOCAL COMERCIAL N° ...</td>
+      <td>SANTA ANITA</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. CARRETERA CENTRAL 111, LOCAL COMERCIAL N° ...</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>NACIONES UNIDAS</td>
+      <td>Av. Jorge Chavez Cuadra 2</td>
+      <td>MIRAFLORES</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>Av. Jorge Chavez Cuadra 2, MIRAFLORES</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>162</th>
+      <td>SAN JUAN DE MIRAFLORES</td>
+      <td>AV. DE LOS HEROES 502</td>
+      <td>SAN JUAN DE</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. DE LOS HEROES 502, SAN JUAN DE</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>177</th>
+      <td>VALLE SHARON</td>
+      <td>AV. VICTOR C. IGLESIAS 790-792-794-796-798 - U...</td>
+      <td>SAN JUAN DE</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>AV. VICTOR C. IGLESIAS 790-792-794-796-798 - U...</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+    <tr>
+      <th>184</th>
+      <td>VILLA EL SALVADOR</td>
+      <td>SEC. SEGUNDO, GRUPO RESIDENCIAL 10,MZ G LT. 17...</td>
+      <td>VILLA EL SALVADOR</td>
+      <td>LIMA</td>
+      <td>LIMA</td>
+      <td>SEC. SEGUNDO, GRUPO RESIDENCIAL 10,MZ G LT. 17...</td>
+      <td>(nan, nan)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-12.089473</td>
+      <td>-77.058975</td>
+      <td>-12.080155</td>
+      <td>-76.988832</td>
+      <td>-12.08594</td>
+      <td>-77.093363</td>
+      <td>-12.08361</td>
+      <td>-77.05366</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se agrega manualmente la longitud y latitud de las direcciones faltantes</span>
+<span class="c1"># Oficina Capon</span>
+<span class="n">fila_38</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;WXQC+649, La Victoria 15033&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_38_lat</span> <span class="o">=</span> <span class="n">fila_38</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_38_lng</span> <span class="o">=</span> <span class="n">fila_38</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">38</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_38_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">38</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_38_lng</span>
+
+<span class="c1"># Oficina Muro</span>
+<span class="n">fila_61</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;AV. WIESSE TDA A, PROGR. CIUDAD MARISCAL CACERES, SEC. II, MZ. J1 LT. 28, SJL&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_61_lat</span> <span class="o">=</span> <span class="n">fila_61</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_61_lng</span> <span class="o">=</span> <span class="n">fila_61</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">61</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_61_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">61</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_61_lng</span>
+
+<span class="c1"># Oficina Gamarra</span>
+<span class="n">fila_72</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Prolong. Unanue 1599, Lima&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_72_lat</span> <span class="o">=</span> <span class="n">fila_72</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_72_lng</span> <span class="o">=</span> <span class="n">fila_72</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_72_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_72_lng</span>
+
+<span class="c1"># Oficina HIPOLITO UNANUE</span>
+<span class="n">fila_76</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Jirón Hipólito Unanue 1616, Lima 15018&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_76_lat</span> <span class="o">=</span> <span class="n">fila_76</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_76_lng</span> <span class="o">=</span> <span class="n">fila_76</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">76</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_76_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">76</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_76_lng</span>
+
+<span class="c1"># Oficina MALL AVENTURA PLAZA SANTA ANITA</span>
+<span class="n">fila_109</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;local comercial lf1a, Carr. Central 111, Provincia de Lima 15008&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_109_lat</span> <span class="o">=</span> <span class="n">fila_109</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_109_lng</span> <span class="o">=</span> <span class="n">fila_109</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">109</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_109_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">109</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_109_lng</span>
+
+<span class="c1"># Oficina Naciones Unidas</span>
+<span class="n">fila_121</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Av. Jorge Chavez, BBVA, Miraflores&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_121_lat</span> <span class="o">=</span> <span class="n">fila_121</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_121_lng</span> <span class="o">=</span> <span class="n">fila_121</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">121</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_121_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">121</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_121_lng</span>
+
+<span class="c1"># Oficina Capon</span>
+<span class="n">fila_38</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;WXQC+649, La Victoria 15033&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_38_lat</span> <span class="o">=</span> <span class="n">fila_38</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_38_lng</span> <span class="o">=</span> <span class="n">fila_38</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">38</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_38_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">38</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_38_lng</span>
+
+<span class="c1"># Oficina Gamarra</span>
+<span class="n">fila_72</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Prolong. Unanue 1599, Lima&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_72_lat</span> <span class="o">=</span> <span class="n">fila_72</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_72_lng</span> <span class="o">=</span> <span class="n">fila_72</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_72_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_72_lng</span>
+
+<span class="c1"># Oficina HIPOLITO UNANUE</span>
+<span class="n">fila_76</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Jirón Hipólito Unanue 1616, Lima 15018&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_76_lat</span> <span class="o">=</span> <span class="n">fila_76</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_76_lng</span> <span class="o">=</span> <span class="n">fila_76</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">76</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_76_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">76</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_76_lng</span>
+
+<span class="c1"># Oficina MALL AVENTURA PLAZA SANTA ANITA</span>
+<span class="n">fila_109</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;local comercial lf1a, Carr. Central 111, Provincia de Lima 15008&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_109_lat</span> <span class="o">=</span> <span class="n">fila_109</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_109_lng</span> <span class="o">=</span> <span class="n">fila_109</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">109</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_109_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">109</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_109_lng</span>
+
+<span class="c1"># Oficina Naciones Unidas</span>
+<span class="n">fila_121</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Av. Jorge Chavez, BBVA, Miraflores&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_121_lat</span> <span class="o">=</span> <span class="n">fila_121</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_121_lng</span> <span class="o">=</span> <span class="n">fila_121</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">121</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_121_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">121</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_121_lng</span>
+
+<span class="c1"># Oficina San Juan de Miraflores</span>
+<span class="n">fila_162</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Av. los Héroes 502, San Juan de Miraflores 15801&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_162_lat</span> <span class="o">=</span> <span class="n">fila_162</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_162_lng</span> <span class="o">=</span> <span class="n">fila_162</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">162</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_162_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">162</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_162_lng</span>
+
+<span class="c1"># Oficina VALLE SHARON</span>
+<span class="n">fila_177</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Av. Víctor Castro Iglesias 790, San Juan de Miraflores 15801&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_177_lat</span> <span class="o">=</span> <span class="n">fila_177</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_177_lng</span> <span class="o">=</span> <span class="n">fila_177</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">177</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_177_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">177</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_177_lng</span>
+
+<span class="c1"># Oficina VILLA EL SALVADOR</span>
+<span class="n">fila_184</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span> <span class="s2">&quot;Av. Revolucion 17, Lima 15834&quot;</span> <span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;pe&#39;</span> <span class="p">)</span>
+
+<span class="n">fila_184_lat</span> <span class="o">=</span> <span class="n">fila_184</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lat&#39;</span> <span class="p">]</span>
+<span class="n">fila_184_lng</span> <span class="o">=</span> <span class="n">fila_184</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">][</span> <span class="s1">&#39;location&#39;</span> <span class="p">][</span> <span class="s1">&#39;lng&#39;</span> <span class="p">]</span>
+
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">184</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_184_lat</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">at</span><span class="p">[</span> <span class="mi">184</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="n">fila_184_lng</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Asignación manual de la logitud y latitud de la oficina de la marina que presentaba problemas</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;OFICINA&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LA MARINA&#39;</span><span class="p">,</span> <span class="s1">&#39;LONGITUD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">77.08753603558203</span>
+<span class="n">data_lima_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_lima_final</span><span class="p">[</span><span class="s1">&#39;OFICINA&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LA MARINA&#39;</span><span class="p">,</span> <span class="s1">&#39;LATITUD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">12.078427075875975</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verificación de valores perdidos en la columna de longitud</span>
+<span class="n">data_lima_final</span><span class="p">[</span> <span class="n">data_lima_final</span> <span class="p">[</span> <span class="s1">&#39;LONGITUD&#39;</span> <span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="p">]</span>
+<span class="c1"># Se observa que no hay ningún valor perdido</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OFICINA</th>
+      <th>DIRECCION</th>
+      <th>DISTRITO</th>
+      <th>PROVINCIA</th>
+      <th>DEPARTAMENTO</th>
+      <th>DIRECCION COMPLETA</th>
+      <th>COORDENADAS</th>
+      <th>LATITUD</th>
+      <th>LONGITUD</th>
+      <th>lat_abel</th>
+      <th>lng_abel</th>
+      <th>lat_afrania</th>
+      <th>lng_afrania</th>
+      <th>lat_cristian</th>
+      <th>lng_cristian</th>
+      <th>lat_meir</th>
+      <th>lng_meir</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">google_distance</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">):</span>
+                
+        <span class="k">if</span> <span class="n">api_key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;`api_key` should not be None.&#39;</span><span class="p">)</span>
+            
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">api_key</span> <span class="p">,</span> <span class="nb">str</span> <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">api_key</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="sa">f</span><span class="s1">&#39;api_key` should be a str.&#39;</span> <span class="p">)</span>
+
+    
+    <span class="k">def</span> <span class="nf">results_directions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">result</span> <span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span> <span class="n">result</span> <span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">distance_meters</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;legs&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;distance&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+            <span class="n">time_seconds</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;legs&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;duration&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">distance_meters</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">time_seconds</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="p">(</span> <span class="n">distance_meters</span> <span class="p">,</span> <span class="n">time_seconds</span><span class="p">)</span>
+    
+
+    <span class="k">def</span> <span class="nf">directions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="p">,</span> <span class="n">lat_orig</span><span class="p">,</span> <span class="n">lon_orig</span> <span class="p">,</span> <span class="n">lat_dest</span><span class="p">,</span> <span class="n">lon_dest</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span> <span class="p">):</span>
+        
+        <span class="c1"># The output variable you can use the following values :  &quot;driving&quot; , &quot;walking&quot; , &quot;bicycling&quot;, &quot;transit&quot;</span>
+        <span class="n">gmaps</span> <span class="o">=</span> <span class="n">googlemaps</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span> <span class="n">key</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="p">)</span>
+        
+        <span class="n">mode_directions</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;driving&quot;</span> <span class="p">,</span> <span class="s2">&quot;walking&quot;</span> <span class="p">,</span> <span class="s2">&quot;bicycling&quot;</span><span class="p">,</span> <span class="s2">&quot;transit&quot;</span> <span class="p">]</span>
+        <span class="n">data1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">output</span> <span class="o">!=</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">mode_directions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">output</span> <span class="p">]</span>
+        
+        <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">mode_directions</span><span class="p">:</span>
+            
+            <span class="c1"># We use the lambda funtion</span>
+            <span class="n">result</span>  <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_directions</span><span class="p">(</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">directions</span><span class="p">(</span>      \
+                                    <span class="n">origin</span>       <span class="o">=</span> <span class="p">(</span> <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lat_orig</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="p">,</span> <span class="n">row</span><span class="p">[</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lon_orig</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">,</span>        \
+                                    <span class="n">destination</span>  <span class="o">=</span> <span class="p">(</span> <span class="n">row</span><span class="p">[</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lat_dest</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="p">,</span> <span class="n">row</span><span class="p">[</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">lon_dest</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">,</span>  \
+                                    <span class="n">mode</span>         <span class="o">=</span> <span class="n">mode</span> <span class="p">,</span> 
+                                    <span class="n">alternatives</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">),</span>                        \
+                                    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> 
+                                 <span class="p">)</span>
+            
+            <span class="n">data1</span><span class="p">[[</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">_dist_mt&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">_time_sec&#39;</span> <span class="p">]]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="n">result</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">index</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">index</span> <span class="p">)</span>
+                
+        <span class="k">return</span> <span class="n">data1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Usamos la llave de la clase</span>
+
+<span class="n">google_dir_api</span> <span class="o">=</span> <span class="n">google_distance</span><span class="p">(</span> <span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;AIzaSyD_4E6Hd-fYECy3mZ4asxN23JjIstvLdoE&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Calculamos las distancias</span>
+<span class="n">dir_results_abel</span> <span class="o">=</span> <span class="n">google_dir_api</span><span class="o">.</span><span class="n">directions</span><span class="p">(</span> <span class="n">data_lima_final</span>  <span class="p">,</span> <span class="n">lat_orig</span><span class="o">=</span><span class="s1">&#39;LATITUD&#39;</span><span class="p">,</span> <span class="n">lon_orig</span><span class="o">=</span><span class="s1">&#39;LONGITUD&#39;</span> <span class="p">,</span> <span class="n">lat_dest</span><span class="o">=</span><span class="s1">&#39;lat_abel&#39;</span><span class="p">,</span> <span class="n">lon_dest</span><span class="o">=</span><span class="s1">&#39;lng_abel&#39;</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">dir_results_afrania</span> <span class="o">=</span> <span class="n">google_dir_api</span><span class="o">.</span><span class="n">directions</span><span class="p">(</span> <span class="n">data_lima_final</span>  <span class="p">,</span> <span class="n">lat_orig</span><span class="o">=</span><span class="s1">&#39;LATITUD&#39;</span><span class="p">,</span> <span class="n">lon_orig</span><span class="o">=</span><span class="s1">&#39;LONGITUD&#39;</span> <span class="p">,</span> <span class="n">lat_dest</span><span class="o">=</span><span class="s1">&#39;lat_afrania&#39;</span><span class="p">,</span> <span class="n">lon_dest</span><span class="o">=</span><span class="s1">&#39;lng_afrania&#39;</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">dir_results_cristian</span> <span class="o">=</span> <span class="n">google_dir_api</span><span class="o">.</span><span class="n">directions</span><span class="p">(</span> <span class="n">data_lima_final</span>  <span class="p">,</span> <span class="n">lat_orig</span><span class="o">=</span><span class="s1">&#39;LATITUD&#39;</span><span class="p">,</span> <span class="n">lon_orig</span><span class="o">=</span><span class="s1">&#39;LONGITUD&#39;</span> <span class="p">,</span> <span class="n">lat_dest</span><span class="o">=</span><span class="s1">&#39;lat_cristian&#39;</span><span class="p">,</span> <span class="n">lon_dest</span><span class="o">=</span><span class="s1">&#39;lng_cristian&#39;</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">dir_results_meir</span> <span class="o">=</span> <span class="n">google_dir_api</span><span class="o">.</span><span class="n">directions</span><span class="p">(</span> <span class="n">data_lima_final</span>  <span class="p">,</span> <span class="n">lat_orig</span><span class="o">=</span><span class="s1">&#39;LATITUD&#39;</span><span class="p">,</span> <span class="n">lon_orig</span><span class="o">=</span><span class="s1">&#39;LONGITUD&#39;</span> <span class="p">,</span> <span class="n">lat_dest</span><span class="o">=</span><span class="s1">&#39;lat_meir&#39;</span><span class="p">,</span> <span class="n">lon_dest</span><span class="o">=</span><span class="s1">&#39;lng_meir&#39;</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encontramos las filas con la menor distancia de manejo</span>
+<span class="n">idx_min_dist_abel</span> <span class="o">=</span> <span class="n">dir_results_abel</span><span class="p">[</span><span class="s1">&#39;driving_dist_mt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+<span class="n">idx_min_dist_afrania</span> <span class="o">=</span> <span class="n">dir_results_afrania</span><span class="p">[</span><span class="s1">&#39;driving_dist_mt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+<span class="n">idx_min_dist_cristian</span> <span class="o">=</span> <span class="n">dir_results_cristian</span><span class="p">[</span><span class="s1">&#39;driving_dist_mt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+<span class="n">idx_min_dist_meir</span> <span class="o">=</span> <span class="n">dir_results_meir</span><span class="p">[</span><span class="s1">&#39;driving_dist_mt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+
+
+
+<span class="c1"># Obtener el valor de la oficina correspondiente</span>
+<span class="n">closest_office_abel</span> <span class="o">=</span> <span class="n">dir_results_abel</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_min_dist_abel</span><span class="p">,</span> <span class="s1">&#39;OFICINA&#39;</span><span class="p">]</span>
+<span class="n">closest_office_afrania</span> <span class="o">=</span> <span class="n">dir_results_afrania</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_min_dist_afrania</span><span class="p">,</span> <span class="s1">&#39;OFICINA&#39;</span><span class="p">]</span>
+<span class="n">closest_office_cristian</span> <span class="o">=</span> <span class="n">dir_results_cristian</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_min_dist_cristian</span><span class="p">,</span> <span class="s1">&#39;OFICINA&#39;</span><span class="p">]</span>
+<span class="n">closest_office_meir</span>  <span class="o">=</span> <span class="n">dir_results_meir</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_min_dist_meir</span><span class="p">,</span> <span class="s1">&#39;OFICINA&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Creamos el reporte</span>
+<span class="n">datafinal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Nombre&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Abel&quot;</span><span class="p">,</span> <span class="s2">&quot;Afrania&quot;</span><span class="p">,</span> <span class="s2">&quot;Cristian&quot;</span><span class="p">,</span> <span class="s2">&quot;Meir&quot;</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datafinal</span><span class="p">[</span><span class="s1">&#39;Oficina&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">closest_office_abel</span><span class="p">,</span> <span class="n">closest_office_afrania</span><span class="p">,</span> <span class="n">closest_office_cristian</span><span class="p">,</span> <span class="n">closest_office_meir</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datafinal</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Nombre</th>
+      <th>Oficina</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Abel</td>
+      <td>JAVIER PRADO OESTE</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Afrania</td>
+      <td>LIMA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristian</td>
+      <td>LA MARINA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Meir</td>
+      <td>PLAZA SAN JOSÉ</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to Integration of Python’s Learnings</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Data%20Visualization%20and%20Geolocation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Visualization and API Google</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Meir Tintaya & The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
